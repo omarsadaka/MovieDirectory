@@ -34,6 +34,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.supercharge.shimmerlayout.ShimmerLayout;
+
 import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     AlertDialog alertDialog;
      EditText editText;
      Button searchButton;
+     private ShimmerLayout shimmerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        shimmerLayout = (ShimmerLayout)findViewById ( R.id.shimmer );
         recyclerView =(RecyclerView)findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
@@ -104,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
                         movieList.add(movie);
                         Log.e("response" , String.valueOf(movie));
                     }
+                    shimmerLayout.setVisibility ( View.GONE );
+                    shimmerLayout.stopShimmerAnimation ();
                     movieAdapter.notifyDataSetChanged ();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -176,5 +183,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume ( );
+        shimmerLayout.stopShimmerAnimation ();
+    }
 
+    @Override
+    protected void onPause() {
+        shimmerLayout.stopShimmerAnimation ();
+        super.onPause ( );
+    }
 }

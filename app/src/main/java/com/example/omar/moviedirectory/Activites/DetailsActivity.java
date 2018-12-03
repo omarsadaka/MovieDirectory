@@ -2,6 +2,7 @@ package com.example.omar.moviedirectory.Activites;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +21,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import io.supercharge.shimmerlayout.ShimmerLayout;
+
 public class DetailsActivity extends AppCompatActivity {
+
+
     Movie movie;
     ImageView movieImage;
     TextView movieTitle;
@@ -42,6 +47,8 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+
         queue = Volley.newRequestQueue ( this );
         movie =(Movie)getIntent().getSerializableExtra("movie");
         movieID = movie.getId();
@@ -96,6 +103,7 @@ public class DetailsActivity extends AppCompatActivity {
 
                         Picasso.get ().load ( response.getString ( "Poster" ) ).into ( movieImage );
                         movieBoxOffice.setText ( "Box Office: " + response.getString ( "BoxOffice" ) );
+
 
 
 
